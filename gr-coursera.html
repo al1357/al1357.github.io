@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MathJax example</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            MathJax.Hub.Config({
+                inlineMath: [ ["$", "$"], ["\\(", "\\)"] ],
+                showProcessingMessages: true,
+                jax: ["input/TeX", "output/HTML-CSS"],
+                displayAlign: "left",
+                processEscapes: true
+            });
+        }
+    </script>
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async>
+    </script>
+    <style>
+        .col { float:left;  margin-right:25px;}
+        .col .head { width:100%; text-align:center; color:#4c4c4c; padding-bottom:5px; }
+        .col .top { }
+        .col .bottom { padding-top:20px; padding-right:25px; border:1px dashed #000; border-width:0 1px 0 0; }
+        .bottom .section { padding:10px 0 0 0; border-bottom:1px dashed #000; }
+        .first .top:after { content:""; clear:both; display:block; }
+        .first .top span { border: 1px solid #000; float:left; padding:5px; clear:left; margin: 5px;}
+        .top .formula { border:1px solid #000; padding:0 10px; }
+        .circle { display:inline-block; text-transform: uppercase; font-size: 12px; border:1px solid #000; border-radius:50%; padding:5px; }
+        .other-notes { margin-top:200px; }
+    </style>
+</head>
+<body>
+
+Another attempt to get fairly complicated Latex into a post. Suggestions on how to get it to display sensibly in the forums would be appreciated. It displays very nicely in a notebook.
+
+# Why is $$dz^{[L]} = a^{[L]} - y$$ ?
+
+This is a confusing and mysterious formula, either in this simple form or the version vectorized over the set of test cases.
+
+Probably because it is introduced and used after the formulae involving derivatives and chain rules, and this seems to be ignoring all of that and just using the difference between the prediction and the correct values.
+
+In fact this formula is specific to the case where we have a sigmoid final activation function and a cross-entropy loss function.
+
+The cross-entropy loss function:
+
+$$
+
+\mathcal{L}(y, \hat{y}) = - \left(y \log {\hat{y}} + (1-y) \log {(1 - \hat{y})} \right)
+
+$$
+
+In that formula \( \hat{y} \) is just another name for \( a^{[L]} \)
+
+So we can write the loss function as
+
+$$
+
+\mathcal{L}(y, a^{[L]}) = - \left( y \log {a^{[L]}} + (1 - y) \log {(1 - a^{[L]})} \right)
+
+$$
+
+The abbreviated notation \(d a^{[L]}\) is used for \(\frac {d \mathcal{L}} {d a^{[L]}}\)
+
+With this notation
+
+$$
+
+da^{[L]} = - \left( \frac{y}{a^{[L]}} - \frac {1 - y} {1 - a^{[L]}} \right)
+
+$$
+
+So we get
+
+$$
+
+da^{[L]} = \frac {1-y} {1 - a^{[L]}} - \frac {y } { a^{[L]}}
+
+$$
+
+Now we also have that \(a^{[L]} = \sigma\left( z^{[L]} \right)\) with \(\sigma\) being the sigmoid function, and we know the formula for the sigmoid derivative:
+
+$$
+
+\frac {d \sigma(z)} {d z} = \sigma(z) \left( 1 - \sigma(z) \right)
+
+$$
+
+This allows us to write the derivative of \(a^{[L]}\) in terms of its value:
+
+$$
+
+\frac {d a^{[L]} } {d z^{[L]} } = a^{[L]} \left( 1 - a^{[L]} \right)
+
+$$
+
+We now take the chain rule:
+
+$$
+
+\frac {d\mathcal{L}} {dz^{[L]}} = \frac {d\mathcal{L}} {da^{[L]}} \frac {da^{[L]}} {dz^{[L]}}
+
+$$
+
+And using the abbreviated notation and substituting what we know for the terms on the right-hand side we get:
+
+$$
+
+dz^{[L]} = \left( \frac {1 - y}{1 - a^{[L]}} - \frac {y} {a^{[L]}} \right) a^{[L]} \left( 1 - a^{[L]} \right)
+
+$$
+
+Multiplying things out gets rid of the fractions:
+
+$$
+
+dz^{[L]} = \left( \left( 1-y \right) a^{[L]} - y \left( 1 - a^{[L]}\right) \right)
+
+$$
+
+And multiplying these terms out gives us:
+
+$$
+
+dz^{[L]} = a^{[L]} - y a^{[L]} -y + y a^{[L]}
+
+$$
+
+Which finally simplifies to:
+
+$$
+
+dz^{[L]} = a^{[L]} - y
+
+$$
+
+So as we see, the complicated derivatives and chain rule end up with that simple, but over-simple looking, difference.
+</body></html>
