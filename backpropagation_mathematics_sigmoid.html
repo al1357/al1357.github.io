@@ -34,12 +34,17 @@
     <!-- input data -->
     <div class="col first">
         <div class="top">
+            Inputs:<br />
             <span>X</span>
             <span>W</span>
             <span>b</span>
         </div>
         <div class="bottom">
             <div class="section">
+            <br />
+            Activation fn<br /> 
+            g(z) is sigmoid<br />
+            $$\sigma (z) = \frac{1}{1 + e^{-z}}$$<br /><br />
             Example<br /> dim.:<br /><br />
             \(X - 5 \times m\)<br />
             \( l^{[1]} - 6 \)<br />
@@ -174,7 +179,6 @@
         </div>
         <div class="bottom">
             <div class="section">
-            $$g(z^{[2]}) = \sigma (z^{[2]}) = \frac{1}{1 + e^{-z^{[2]}}}$$
             <span class="circle">1d</span>
             $$\frac{d}{d z^{[2]}} a^{[2]} = \frac{d}{d z^{[2]}} g(z^{[2]})$$
             $$= g'(z^{[2]}) = \frac{e^{-z^{[2]}}}{(e^{-z^{[2]}} + 1)^2}$$
@@ -200,7 +204,7 @@
         </div>
         <div class="bottom">
             <div class="section">
-            $$\alpha(a^{[2]}, y) = - ( ylog(a^{[2]} + (1-y)log(1-a^{[2]}) )$$
+            $$\alpha(a^{[2]}, y) = - ( ylog(a^{[2]}) + (1-y)log(1-a^{[2]}) )$$
             <br />
             <span class="circle">1e</span>
             $$\frac{d}{d a^{[2]}} \alpha (a, y) = -\frac{y}{a^{[2]}} + \frac{1-y}{1-a^{[2]}}$$
@@ -217,7 +221,8 @@
     <br style="clear:both;" /><br />
     <div class="other-notes">
         Notes: <br /><br />
-        - for the purpose of this sheet: $$\frac{\partial a}{\partial b} = \frac{da}{db}$$
+        - for the purpose of this sheet: $$\frac{\partial a}{\partial b} = \frac{da}{db}$$<br /><br /><br />
+        - * is element-wise and @ is matrix multiplication
     </div>
 </body>
 </html>
